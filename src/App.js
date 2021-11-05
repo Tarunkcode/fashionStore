@@ -1,21 +1,45 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import HomePage from "./pages/homepage/homepage.component.jsx";
-import "./pages/homepage/homepage.styles.scss";
-// import HatsPage from "./pages/homepage/homepage.component";
-const HatsPage = () => (
-  <div>
-    <h1> HATS PAGE </h1>
-  </div>
-);
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
+
+import './App.css';
+
+const HomePage = props => {
+  console.log(props);
+  return (
+    <div>
+      <button onClick={() => props.history.push('/topics')}>Topics </button>
+      <h1>HOME PAGE</h1>
+    </div>
+  );
+};
+
+const TopicsList = props => {
+  return (
+    <div>
+      <h1>TOPIC LIST PAGE</h1>
+      <Link to={`${props.match.url}/13`}>TO TOPIC 13</Link>
+      <Link to={`${props.match.url}/17`}>TO TOPIC 17</Link>
+      <Link to={`${props.match.url}/21`}>TO TOPIC 21</Link>
+    </div>
+  );
+};
+
+const TopicDetail = props => {
+  return (
+    <div>
+      <h1>TOPIC DETAIL PAGE: {props.match.params.topicId}</h1>
+    </div>
+  );
+};
+
 function App() {
   return (
     <div>
-      <Switch>
-        {/* Switch to stop us or keep control to not render multiple components at same time accidently */}
-        <Route exact path="/" component={HomePage} />
-        <Route path="/hats" component={HatsPage} />
-      </Switch>
+      <Route exact path='/' component={HomePage} />
+      <Route exact path='/blog/asdqw/topics' component={TopicsList} />
+      <Route path='/blog/asdqw/topics/:topicId' component={TopicDetail} />
+      <Route exact path='/blog/topics' component={TopicsList} />
+      <Route path='/blog/topics/:topicId' component={TopicDetail} />
     </div>
   );
 }
