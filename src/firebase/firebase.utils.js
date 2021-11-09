@@ -35,4 +35,5 @@ export const signInWithGoogle = () =>
       console.log(error);
     });
 
+
 export default firebase;

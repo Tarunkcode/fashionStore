@@ -34,7 +34,7 @@ class App extends React.Component {
 
   return (
     <div>
-      <Header />
+      <Header currentUser = {this.state.currentUser} />
       <Switch>
         {/* Switch to stop us or keep control to not render multiple components at same time accidently */}
         <Route exact path="/" component={HomePage} />
