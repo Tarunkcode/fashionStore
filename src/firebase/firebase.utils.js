@@ -1,10 +1,17 @@
 import * as firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
 import "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged
+} from "firebase/auth";
 import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
 
-export {onAuthStateChanged};
+export { onAuthStateChanged };
+export { createUserWithEmailAndPassword };
 const config = {
   apiKey: "AIzaSyAFoSHPw82mcMZ2XsIoi2aYghpDdLPlP8k",
   // authDomain: "auth.natureguardianz.me",
