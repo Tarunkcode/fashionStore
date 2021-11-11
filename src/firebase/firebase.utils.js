@@ -1,8 +1,10 @@
 import * as firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
 import "firebase/firestore";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, getDoc, doc, setDoc } from "firebase/firestore";
 
+export {onAuthStateChanged};
 const config = {
   apiKey: "AIzaSyAFoSHPw82mcMZ2XsIoi2aYghpDdLPlP8k",
   // authDomain: "auth.natureguardianz.me",
@@ -17,7 +19,7 @@ const config = {
 initializeApp(config);
 
 export const auth = getAuth();
-// export const firestore = firebase.firestore();
+export const firestore = getFirestore();
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
@@ -35,5 +37,25 @@ export const signInWithGoogle = () =>
       console.log(error);
     });
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if (!userAuth) return;
+  const userRef = doc(firestore, `users/${userAuth.uid}`);
 
+  const snapshot = await getDoc(userRef);
+  if (!snapshot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+    try {
+      await setDoc(userRef, {
+        displayName,
+        createdAt,
+        email,
+        ...additionalData
+      });
+    } catch (error) {
+      console.log("error creating user", error.message);
+    }
+  }
+  return userRef;
+};
 export default firebase;
