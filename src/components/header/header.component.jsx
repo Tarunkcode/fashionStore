@@ -4,8 +4,7 @@ import { ReactComponent as Logo } from "../../assets/crawn.svg";
 import "./header.styles.scss";
 import {auth} from '../../firebase/firebase.utils';
 import {signOut} from 'firebase/auth'
-
-
+import {connect} from 'react-redux';
 
 
 const Header = ({currentUser}) => (
@@ -29,4 +28,8 @@ const Header = ({currentUser}) => (
     </div>
   </div>
 );
-export default Header;
+
+const mapSateToProps =state => ({
+   currentUser : state.user.currentUser
+})
+export default connect(mapSateToProps)(Header);
