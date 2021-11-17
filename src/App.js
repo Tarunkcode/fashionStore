@@ -12,7 +12,7 @@ import {
   onAuthStateChanged
 } from "./firebase/firebase.utils";
 import { onSnapshot } from "firebase/firestore";
-import {setCurrentUser} from '../redux/user/user.actions';
+import {setCurrentUser} from './redux/user/user.actions';
 import {connect} from 'react-redux';
 
 class App extends React.Component {
