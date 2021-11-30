@@ -7,7 +7,11 @@ import { signOut } from "firebase/auth";
 import { connect } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
-
+import {
+  selectCurrentUser,
+  selectCartHidden
+} from "../../redux/user/user.selectors.js";
+import { createStructuredSelector } from "reselect";
 const Header = ({ currentUser, hidden }) => (
   <div className="header">
     <Link className="logo-container" to="/">
@@ -39,8 +43,9 @@ const Header = ({ currentUser, hidden }) => (
   </div>
 );
 // destructure in advanced way to pass props as we want currentUser from user and hidden values from cart
-const mapSateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
-  currentUser,
-  hidden
+const mapSateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
 });
+
 export default connect(mapSateToProps)(Header);
